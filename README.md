@@ -1,144 +1,155 @@
-# Disease Predictor
+Disease Predictor
 
-**Project:** Disease Prediction Application (Final year major project)  
-**Team:** Aryan Rawtani + 2 members  
-**Status:** Backend ready (`ready/demo-backend` branch)
+Project: Disease Prediction Web Application (Final Year Major Project)
+Team Lead: Aniket Kr. Pandey + 2 team members
+Development Status: Backend completed (ready/demo-backend branch)
 
----
+Project Overview
 
-## Overview
+Disease Predictor is a web-based application designed to help users identify possible diseases based on selected symptoms. During experimentation with multiple machine learning algorithms, Logistic Regression was found to produce the most reliable performance on our labeled dataset.
 
-Disease Predictor is a web app that helps users identify possible diseases based on their symptoms. After experimenting with several machine learning models, we found that **Logistic Regression** gave the best results for our labeled dataset.
+The application serves as a basic health guidance tool, allowing users to input symptoms and receive a predicted disease that may help them decide on next steps.
 
-This app can be used for basic health consultation: users enter their symptoms and receive a likely disease prediction, which can help guide their next steps.  
-**Note:** This tool is for informational purposes only and is not a substitute for professional medical advice, diagnosis, or treatment.
+⚠️ Disclaimer: This system is for educational and informational purposes only and should not be considered a replacement for professional medical consultation or diagnosis.
 
-- **Backend:** Django REST Framework, PostgreSQL
-- **ML:** scikit-learn (**Logistic Regression**; previously SVM), model artifacts (`model.pkl`, `columns.pkl`, `label_encoder.pkl`)
-- **Frontend:** React.js (details below)
+Technology Stack
 
-## Key Highlights
+Backend: Django REST Framework, PostgreSQL
 
-- **Fast & Easy:** Get disease predictions in seconds with just a few clicks.
-- **No Medical Knowledge Needed:** Simple symptom selection—no jargon or codes.
+Machine Learning: scikit-learn (Logistic Regression; previously tested SVM)
 
-- **Privacy First:** No personal health data is stored beyond your account; predictions are not saved.
-- **Anonymous Consultation:** You can use the app without revealing your identity (except for account features).
-- **Admin Dashboard:** Admins can manage data and retrain the model directly from the UI.
-- **Accessible:** Designed for all users, with clear instructions and feedback.
+Model Files: model.pkl, columns.pkl, label_encoder.pkl
 
-## Frontend
+Frontend: React.js
 
-Our frontend is built with **React.js** and is designed to be simple, intuitive, and responsive.
+Key Features
 
-### What you can do
+Quick Predictions: Disease results generated instantly based on symptom input.
 
-- Register and log in as a user
-- Select symptoms from a searchable, multi-select list
-- Get instant disease predictions based on your input
-- (For admins) Trigger model training and upload patient data
-- Enjoy a smooth experience on both desktop and mobile
+User-Friendly Design: Symptom selection requires no medical expertise.
 
-### How it works
+Privacy Focused: Personal health data is not stored; predictions are not logged.
 
-1. **Authentication:**  
-   Users can sign up and log in. Tokens are stored securely (usually in local storage) and sent with each API request.
+Anonymous Usage: Users can access predictions without exposing personal identity (except for account-based features).
 
-2. **Symptom Input:**  
-   Just pick your symptoms from the list. The app sends them as a JSON array to the backend’s `/api/disease/predict/` endpoint.
+Admin Controls: Admin users can manage datasets and retrain models through the interface.
 
-3. **Prediction Results:**  
-   The predicted disease (and any extra info) is displayed right away.
+Accessibility: Simple UI with clear instructions for all users.
 
-4. **Admin Tools:**  
-   Admins can retrain the model and upload patient data directly from the UI.
+Frontend Details
 
-### Running the Frontend Locally
+The frontend is developed using React.js, optimized for responsiveness and ease of use.
 
-1. Go to the frontend directory:
+Available Functionalities
 
-   ```bash
-   cd frontend
-   ```
+User registration and secure login
 
-2. Install dependencies:
+Symptom selection via searchable multi-select UI
 
-   ```bash
-   npm install
-   ```
+Real-time disease prediction results
 
-3. Set the API endpoint:  
-   Update the API base URL in your frontend config (like `.env`) to point to your backend.
+Admin-only options for model retraining and data upload
 
-4. Start the app:
-   ```bash
-   npm start
-   ```
-   By default, it runs at [http://localhost:3000](http://localhost:3000).
+Mobile and desktop friendly layout
 
-## Features
+Frontend Workflow
 
-- User registration & token-based authentication (DRF TokenAuth)
-- Train a **Logistic Regression** model from `Training.csv`  
-  _(We tried different models, but Logistic Regression worked best for our labeled data)_
-- Predict diseases from symptoms
-- (Optional) Insert patient data from CSV for admin view
+Authentication
+Users authenticate via token-based login. Tokens are securely stored and sent with API requests.
 
-### API Endpoints
+Symptom Selection
+Users select symptoms which are sent as a JSON payload to the backend endpoint.
 
-- `POST /api/accounts/register/` — Register user (returns token)
-- `POST /api/accounts/login/` — Login (returns token)
-- `GET  /api/accounts/me/` — Get current user (token required)
-- `GET  /api/disease/train/` — Train model (returns accuracy)
-- `POST /api/disease/predict/` — Predict disease  
-  Example body:
-  ```json
-  { "symptoms": ["itching", "skin_rash", "chills"] }
-  ```
-- `POST /api/disease/insertpd/` — (Admin) Insert CSV records into DB
+Prediction Output
+The backend returns a predicted disease, which is displayed instantly.
 
-## Getting Started (Backend)
+Admin Tools
+Admins can initiate model training and upload CSV data via the UI.
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/aryanraw02/disease-predictor.git
-   cd disease-predictor
-   ```
-2. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. **Configure the database**  
-   Update `settings.py` with your PostgreSQL credentials.
+Running Frontend Locally
+cd frontend
+npm install
+npm start
 
-4. **Apply migrations**
 
-   ```bash
-   python manage.py migrate
-   ```
+The application will start at:
+👉 http://localhost:3000
 
-5. **Run the server**
+Make sure the backend API URL is correctly set in the frontend configuration or .env file.
 
-   ```bash
-   python manage.py runserver
-   ```
+Application Capabilities
 
-6. **Train the model**  
-   Visit `GET /api/disease/train/` or use an API client.
+User registration and token-based login (DRF Token Authentication)
 
-## Consultation
+Model training using Logistic Regression from Training.csv
 
-You can use Disease Predictor as a quick consultation tool:
+Disease prediction from symptom input
 
-- Enter your symptoms and get an instant prediction of possible diseases.
-- Use the results to decide if you should consult a healthcare professional.
-- The app provides basic information, but always seek medical advice for serious or persistent symptoms.
+Optional CSV-based patient data insertion (admin only)
 
-## Contributing
+API Endpoints
 
-Contributions are welcome! If you have suggestions or want to add features, feel free to open an issue or submit a pull request.
+POST /api/accounts/register/ — Register new user
 
----
+POST /api/accounts/login/ — User login
 
-**License:** MIT  
-**Contact:** Aryan Rawtani
+GET /api/accounts/me/ — Get logged-in user info
+
+GET /api/disease/train/ — Train ML model (returns accuracy)
+
+POST /api/disease/predict/ — Predict disease from symptoms
+Request example:
+
+{
+  "symptoms": ["itching", "skin_rash", "chills"]
+}
+
+
+POST /api/disease/insertpd/ — Upload CSV patient data (admin access)
+
+Backend Setup Guide
+
+Clone the repository
+
+git clone https://github.com/aniketcse01/disease-predictor.git
+cd disease-predictor
+
+
+Install dependencies
+
+pip install -r requirements.txt
+
+
+Configure database
+Update PostgreSQL credentials in settings.py.
+
+Run migrations
+
+python manage.py migrate
+
+
+Start the server
+
+python manage.py runserver
+
+
+Train the ML model
+Access:
+
+GET /api/disease/train/
+
+Usage as a Consultation Tool
+
+Select symptoms and receive a predicted disease instantly.
+
+Use the output as preliminary guidance only.
+
+Always consult a medical professional for serious conditions.
+
+Contribution Guidelines
+
+Contributions are encouraged.
+Feel free to open issues, suggest improvements, or submit pull requests.
+
+License: MIT
+Project Maintainer: Aniket Kr. Pandey
